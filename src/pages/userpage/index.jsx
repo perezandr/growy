@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import styles from "../../styles/Userpage.module.scss";
+import styles from "../../styles/userpage.module.scss";
 
 export default function UserProfilePage() {
   const [user, setUser] = useState({
