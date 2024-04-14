@@ -1,0 +1,61 @@
+@import "../../assets/variables.module.scss";
+@import "../../assets/mixins.module.scss";
+
+.header_wrapper {
+  @include flex-container(row, center, center, 0, nowrap);
+  position: fixed;
+  top: 0;
+  background-color: $bg-color;
+  border-bottom-left-radius: 60px;
+  border-bottom-right-radius: 60px;
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  padding: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Ombra */
+  // CHECK BELOW
+  z-index: 2;
+
+    .logo {
+      display: none;
+    }  
+
+    .info_wrapper {
+      @include flex-container(row, center, center, 2rem, nowrap);
+
+        .image {
+          border-radius: 50%; /* Imposta il border-radius al 50% per fare un cerchio */
+        }
+      
+        .name {
+          margin-top: 10px;
+          margin-bottom: 0;
+        }
+
+        .resources_wrapper {
+          @include flex-container(row, center, center, 0.6rem, nowrap);
+          padding: 6px 6px 6px 0;
+        }
+    }
+}
+
+/* per i dispositivi desktop */
+@media screen and (min-width: 1080px) {
+  .header_wrapper {
+    max-width: 1080px;
+    left: calc(50% - 540px);
+    @include flex-container(row, center, space-between, 2rem, nowrap);
+    padding: 10px;
+
+    .logo {
+      display: block;
+      padding-left: 20px;
+      width: 150px;
+      height: auto;
+    }
+
+    .info_wrapper {
+      padding-right: 20px;
+    }
+  }
+}
