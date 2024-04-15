@@ -2,8 +2,6 @@ import styles from "./index.module.scss";
 import { IoClose } from "react-icons/io5";
 import { LuAxe } from "react-icons/lu";
 
-import Image from "next/image";
-
 const Plot = ({
   x,
   y,
@@ -28,7 +26,7 @@ const Plot = ({
     >
       {!isEmpty && (
         <>
-          <Image className={styles.plantIcon} src={plantIcon} alt="Plant" />
+          <img className={styles.plantIcon} src={plantIcon} alt="Plant" />
           {showRemoveButton && (
             <div className={styles.buttonWrapper}>
               <button onClick={() => onRemove()} className={styles.removeBtn}>
