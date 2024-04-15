@@ -40,6 +40,7 @@ const TaskList = ({
           </div>
         </div>
       ) : (
+<<<<<<< HEAD
         <div className={styles.noTask}>
           <h5>It's time to start growing!</h5>
           <Image
@@ -51,6 +52,9 @@ const TaskList = ({
           />
           <h5>Choose your tasks, roll up your sleeves and jump in!</h5>
         </div>
+=======
+        <h4>It&#39;s time to start growing!</h4>
+>>>>>>> 1f7b8ac (fix)
       )}
     </div>
   );
