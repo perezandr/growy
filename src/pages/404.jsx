@@ -1,4 +1,4 @@
-import styles from "@/styles/404.module.css";
+import styles from "@/styles/custom404.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
