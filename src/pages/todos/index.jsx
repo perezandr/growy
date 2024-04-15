@@ -1,5 +1,5 @@
 import React from "react";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "../../styles/lists.module.scss";
@@ -32,8 +32,15 @@ import Header from "@/components/header";
 //   }
 // };
 
-const TodosPage = ({ session }) => {
+const TodosPage = () => {
   const router = useRouter();
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // This function can redirect the user or perform other actions
+      router.push("/login");
+    },
+  });
   const [todos, setTodos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -134,13 +141,5 @@ const TodosPage = ({ session }) => {
     <Loader />
   );
 };
-
-export async function getServerSideProps(context) {
-  return {
-    props: {
-      session: await getSession(context),
-    },
-  };
-}
 
 export default TodosPage;

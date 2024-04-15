@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styles from "../../styles/Garden.module.scss";
 import Plot from "@/components/plot";
@@ -10,8 +10,15 @@ import { useUserResources } from "@/contexts/userResourcesContext";
 import Loader from "@/components/loader/Loader.jsx";
 import Header from "@/components/header";
 
-const GardenPage = ({ session }) => {
+const GardenPage = () => {
   const router = useRouter();
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // This function can redirect the user or perform other actions
+      router.push("/login");
+    },
+  });
   const [garden, setGarden] = useState(null);
   const [isGardenModalOpen, setIsGardenModalOpen] = useState(false);
   const [selectedPlot, setSelectedPlot] = useState(null);
@@ -221,7 +228,11 @@ const GardenPage = ({ session }) => {
     }
   };
 
-  return session ? (
+  if (status === "loading") {
+    return <Loader />;
+  }
+
+  return (
     <>
       <Header />
       <div className={styles.gardenContainer}>
@@ -248,17 +259,7 @@ const GardenPage = ({ session }) => {
       </div>
       <Navbar />
     </>
-  ) : (
-    <Loader />
   );
 };
-
-export async function getServerSideProps(context) {
-  return {
-    props: {
-      session: await getSession(context),
-    },
-  };
-}
 
 export default GardenPage;
