@@ -9,35 +9,11 @@ import Navbar from "@/components/navbar";
 import Loader from "@/components/loader/Loader.jsx";
 import Header from "@/components/header";
 
-// const createNewTodo = async (userId, setTodos) => {
-//   const response = await fetch("/api/todos", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     //questo e' il body per la creazione dell'habit
-//     body: JSON.stringify({
-//       title: "Lallalero", //il titolo dell'habit lo sceglie l'utente inserendolo nel form, allo stato attuale e' fisso
-//       userId, //lo userId dipende sempre dalla session, se nopn c'e' session non si puo' creare un habit e vieni reindirizzato alla pagina di login
-//     }),
-//   });
-
-//   if (response.ok) {
-//     const newTodo = await response.json();
-//     console.log(newTodo.data);
-//     setTodos((prevTodos) => [...prevTodos, newTodo.data]);
-//   } else {
-//     const error = await response.json();
-//     console.error(error);
-//   }
-// };
-
 const TodosPage = () => {
   const router = useRouter();
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      // This function can redirect the user or perform other actions
       router.push("/login");
     },
   });
@@ -62,7 +38,7 @@ const TodosPage = () => {
     };
 
     loadTodos();
-  }, [router, session]);
+  }, [session]);
 
   const handleDeleteClick = async (id) => {
     const endpoint = `/api/todos/${id}`;
@@ -123,17 +99,11 @@ const TodosPage = () => {
             setIsOpen={setIsModalOpen}
           />
         )}
-        <div id="wrapper">
-          <div className={styles.scrollbar} id="style-default">
-            <div className={styles.force_overflow}>
-              <TaskList
-                tasks={todos}
-                deleteFunction={handleDeleteClick}
-                updateTodoFunction={handleTodoChangeClick}
-              />
-            </div>
-          </div>
-        </div>
+        <TaskList
+          tasks={todos}
+          deleteFunction={handleDeleteClick}
+          updateTodoFunction={handleTodoChangeClick}
+        />
         <Navbar isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>
     </div>

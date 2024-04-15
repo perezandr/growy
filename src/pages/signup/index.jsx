@@ -1,4 +1,4 @@
-import styles from "../../styles/SignUp.module.scss";
+import styles from "../../styles/signUp.module.scss";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
@@ -42,6 +42,7 @@ function Signup() {
       router.push("/login");
     } else {
       const error = await response.json();
+      alert("User already exists");
       console.error(error);
     }
   };

@@ -7,16 +7,16 @@ import User from "@/models/user";
 export const authOptions = {
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-    updateAge: 24 * 60 * 60, // 24 hours
-    // Set secure cookies to false if your local environment does not use HTTPS
+    maxAge: 30 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
+
     options: {
       secure: process.env.NODE_ENV === "production",
     },
   },
   jwt: {
     signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
-    // Set secure to false if your local environment does not use HTTPS
+
     secure: process.env.NODE_ENV === "production",
   },
   providers: [
@@ -83,18 +83,6 @@ export const authOptions = {
       return session;
     },
   },
-
-  // cookies: {
-  //   sessionToken: {
-  //     name: `__Secure-next-auth.session-token`,
-  //     options: {
-  //       httpOnly: true,
-  //       sameSite: "lax",
-  //       path: "/",
-  //       secure: true,
-  //     },
-  //   },
-  // },
 };
 
 export default NextAuth(authOptions);
