@@ -24,10 +24,6 @@ const Task = ({
 
   const router = useRouter();
 
-  // useEffect(() => {
-  //   setCurrentStreakCount(streakCount);
-  // }, [streakCount]);
-
   const handleCompleteClick = async (e) => {
     e.preventDefault();
 
@@ -47,6 +43,7 @@ const Task = ({
 
     const currentDate = new Date();
     setNewLastCompleted(currentDate);
+    // console.log(currentDate);
 
     if (router.pathname === "/habits") {
       await updateHabitFunction(id, title, newStreakCount, currentDate);
@@ -57,6 +54,7 @@ const Task = ({
       await updateUserResources(newUserResources);
     }
     if (router.pathname === "/dailies") {
+      console.log(currentDate);
       await updateDailyFunction(id, title, newCompletedValue, currentDate);
       const newUserResources = {
         ...userResources,
@@ -107,7 +105,16 @@ const Task = ({
         }
       }
     }
-  }, [formattedNewLastCompleted]);
+  }, [
+    formattedNewLastCompleted,
+    completed,
+    id,
+    title,
+    updateDailyFunction,
+    updateHabitFunction,
+    router.pathname,
+    newLastCompleted,
+  ]);
 
   let additionalClassName = "";
   switch (router.pathname) {
