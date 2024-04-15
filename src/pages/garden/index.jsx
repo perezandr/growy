@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import styles from "../../styles/Garden.module.scss";
+import styles from "../../styles/garden.module.scss";
 import Plot from "@/components/plot";
 import Navbar from "@/components/navbar";
 import GardenModal from "@/components/gardenModal";
@@ -15,7 +15,6 @@ const GardenPage = () => {
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      // This function can redirect the user or perform other actions
       router.push("/login");
     },
   });
@@ -89,21 +88,6 @@ const GardenPage = () => {
 
     return plots;
   };
-
-  // const handlePlotClick = (x, y, isEmpty) => {
-  //   const clickedPlot = garden.plots.find(
-  //     (plot) => plot.x === x && plot.y === y
-  //   );
-  //   setSelectedPlot({ x, y });
-
-  //   if (isEmpty) {
-  //     setIsGardenModalOpen(true);
-  //     // console.log(clickedPlot.empty);
-  //   } else {
-  //     console.log("Pianta già presente");
-  //     updateGardenData(garden._id, x, y, "weed", true);
-  //   }
-  // };
 
   const handlePlotClick = (x, y) => {
     if (plotToRemove && plotToRemove.x === x && plotToRemove.y === y) {

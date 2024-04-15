@@ -5,23 +5,6 @@
   @include flex-container(column, center, center, 0.5rem, wrap);
   @include wrapper;
   height: auto;
-}
-
-.scrollbar {
-  float: left;
-  height: 455px;
-  width: auto;
-  background: white;
-  overflow-y: scroll;
-  margin-bottom: 25px;
-
-  .force_overflow {
-    min-height: 450px;
-  }
-}
-
-#wrapper {
-  text-align: center;
-  width: 500px;
-  margin: auto;
+  padding-right: 0;
+  padding-left: 0;
 }

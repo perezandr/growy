@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import styles from "../../styles/lists.module.scss";
 import TaskList from "../../components/taskList";
 import TaskModal from "@/components/taskModal";
@@ -13,12 +14,12 @@ const HabitsPage = () => {
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      // This function can redirect the user or perform other actions
       router.push("/login");
     },
   });
   const [habits, setHabits] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [lastCompleted, setLastCompleted] = useState(null);
 
   useEffect(() => {
     async function fetchHabits() {
@@ -81,7 +82,6 @@ const HabitsPage = () => {
   if (status === "loading") {
     return <Loader />;
   }
-
   return (
     <div>
       <Header />
@@ -91,6 +91,7 @@ const HabitsPage = () => {
           <TaskModal
             setTasks={setHabits}
             dataModal={{ pageTitle: "New Habit", showDateInput: false }}
+            session={session}
             isOpen={isModalOpen}
             setIsOpen={setIsModalOpen}
           />
