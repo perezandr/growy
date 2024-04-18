@@ -2,7 +2,8 @@
 @import "../assets/mixins.module.scss";
 
 .login_wrapper {
-  @include flex-container(column, center, center, 1rem);
+  @include flex-container(column, center, space-between, 0, nowrap);
+  height: 100vh;
   background-color: $bg-color;
 
   .logo {
@@ -76,8 +77,4 @@
   text-align: center;
   font-size: 16px;
   color: grey;
-}
-
-/* per i dispositivi desktop */
-@media only screen and (min-width: 769px) {
 }

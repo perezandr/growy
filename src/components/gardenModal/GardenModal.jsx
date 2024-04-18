@@ -1,9 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
+
 import Image from "next/image";
 import styles from "./index.module.scss";
-import { IoWaterOutline, IoClose } from "react-icons/io5";
-import { FaCheck } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
 
 const GardenModal = ({ onClose, onPlantSelect, trees }) => {
   const handlePlantSelect = (plantIconUrl) => {
@@ -16,7 +15,7 @@ const GardenModal = ({ onClose, onPlantSelect, trees }) => {
       <div className={styles.modal}>
         <div className={styles.modalContent} onClick={onClose}>
           <div className={styles.mainInfo}>
-            <h3 className={styles.modalTitle}>Aggiungi un nuovo albero</h3>
+            <h3 className={styles.modalTitle}>Add a new tree</h3>
             <button className={styles.closeBtn} onClick={onClose}>
               <IoClose className={styles.closeIcon} />
             </button>
@@ -32,7 +31,7 @@ const GardenModal = ({ onClose, onPlantSelect, trees }) => {
                   <Image
                     width="50"
                     height="50"
-                    src={`/${tree.sprite}`}
+                    src={`${tree.sprite}`}
                     alt={tree.name}
                   />
                   <div>

@@ -2,8 +2,8 @@ import React from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import styles from "../../styles/lists.module.scss";
-import TaskList from "../../components/taskList";
+import styles from "@/styles/lists.module.scss";
+import TaskList from "@/components/taskList";
 import TaskModal from "@/components/taskModal";
 import Navbar from "@/components/navbar";
 import Loader from "@/components/loader/Loader.jsx";
@@ -73,23 +73,20 @@ const TodosPage = () => {
       if (!response.ok) {
         throw new Error("Failed to update todo");
       } else {
-        //   const updatedTodo = await response.json();
-        //   setTodos((prevTodos) =>
-        //     prevTodos.map((todo) =>
-        //       todo.id === id ? { ...todo, ...updatedTodo } : todo
-        //     )
-        //   );
       }
     } catch (error) {
       console.error(error.message);
     }
   };
 
-  return session ? (
+  if (status === "loading") {
+    return <Loader />;
+  }
+
+  return (
     <div>
       <Header />
       <div className={styles.list_wrapper}>
-        <h2>Your Todos</h2>
         {isModalOpen && (
           <TaskModal
             setTasks={setTodos}
@@ -107,8 +104,6 @@ const TodosPage = () => {
         <Navbar isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>
     </div>
-  ) : (
-    <Loader />
   );
 };
 

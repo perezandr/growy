@@ -1,33 +1,37 @@
 import Image from "next/image";
-import styles from "../../styles/login.module.scss";
+import styles from "@/styles/login.module.scss";
 import React from "react";
-import { signIn } from "next-auth/react";
+import { useEffect } from "react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-
-const handleSubmit = async (event, router) => {
-  event.preventDefault();
-
-  const email = event.target.email.value;
-  const password = event.target.password.value;
-
-  const result = await signIn("credentials", {
-    redirect: false,
-    email,
-    password,
-  });
-
-  if (!result.error) {
-    console.log("logged in");
-    router.push("/habits");
-  } else {
-    //qua va la risposta che manda un avviso di errore all'utente
-    alert("Invalid credentials");
-    console.error(result.error);
-  }
-};
+import { motion } from "framer-motion";
 
 function Login() {
   const router = useRouter();
+  const { data: session, status } = useSession();
+  const text = "Let's start growing together!".split(" ");
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/garden");
+    }
+  }, [status, router]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    const result = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+    if (result.error) {
+      alert("Invalid credentials");
+      console.error(result.error);
+    }
+  };
 
   return (
     <div className={styles.login_wrapper}>
@@ -40,12 +44,24 @@ function Login() {
       />
       <div className={styles.title}>
         <h1>
-          Let&apos;s start <span className={styles.highlight}>growing</span>{" "}
-          together!
+          {text.map((el, i) => (
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 1.20,
+                delay: i / 4,
+              }}
+              key={i}
+              className={i === 2 ? styles.highlight : ""} 
+            >
+              {el}{" "}
+            </motion.span>
+        ))}
         </h1>
       </div>
 
-      <form onSubmit={(event) => handleSubmit(event, router)}>
+      <form onSubmit={handleSubmit}>
         <div className={styles.form_wrapper}>
           <label className={styles.text}>E-mail</label>
           <input
